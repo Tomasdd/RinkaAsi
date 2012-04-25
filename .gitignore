@@ -1,0 +1,6 @@
+# Junk
+.DS_Store
+
+# IDE's
+.idea
+nbproject
