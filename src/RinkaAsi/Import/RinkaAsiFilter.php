@@ -1,5 +1,6 @@
 <?php
-class RinkaAsiFilter {
+class RinkaAsiFilter
+{
 
     protected $id = null;
     protected $category = array();
@@ -9,19 +10,20 @@ class RinkaAsiFilter {
     protected $pagingPage = null;
     protected $skipCount = false;
     protected $onlyWithImages = false;
+    protected $fulltextSearch = null;
 
-    const ORDER_BY_SITE  = 'site';
-    const ORDER_BY_DATE  = 'date';
+    const ORDER_BY_SITE = 'site';
+    const ORDER_BY_DATE = 'date';
     const ORDER_BY_PRICE = 'price';
-    const ORDER_DESC     = 'desc';
-    const ORDER_ASC      = 'asc';
-
+    const ORDER_DESC = 'desc';
+    const ORDER_ASC = 'asc';
 
     /**
      *
      * @param int $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
         return $this;
     }
@@ -30,7 +32,8 @@ class RinkaAsiFilter {
      *
      * @param array $category
      */
-    public function setCategory($category) {
+    public function setCategory($category)
+    {
         if (is_array($category)) {
             $this->category = $category;
         } else {
@@ -40,10 +43,21 @@ class RinkaAsiFilter {
     }
 
     /**
+     * Set full text search
+     *
+     * @param string $fulltextSearch
+     */
+    public function setFulltextSearch($fulltextSearch)
+    {
+        $this->fulltextSearch = $fulltextSearch;
+    }
+
+    /**
      *
      * @param array $citiesList     array of 2 element array (country, city)
      */
-    public function setCities($citiesList) {
+    public function setCities($citiesList)
+    {
         if ($citiesList === null) {
             $this->cities = null;
         } else {
@@ -55,7 +69,8 @@ class RinkaAsiFilter {
         return $this;
     }
 
-    public function addCity($city) {
+    public function addCity($city)
+    {
         if (!is_array($city) || count($city) !== 2) {
             throw new Exception('Each city should be array of 2 elements');
         }
@@ -64,7 +79,6 @@ class RinkaAsiFilter {
         }
         $this->cities[] = $city;
     }
-
 
     /**
      * Available orders:
@@ -87,10 +101,11 @@ class RinkaAsiFilter {
      *
      * @param array $orders
      */
-    public function setOrders(array $orders) {
+    public function setOrders(array $orders)
+    {
         $this->orders = array();
         foreach ($orders as $key => $value) {
-            $this->orders[] = $key .'-'. $value;
+            $this->orders[] = $key . '-' . $value;
         }
         return $this;
     }
@@ -99,7 +114,8 @@ class RinkaAsiFilter {
      *
      * @param int $pagingLimit
      */
-    public function setPagingLimit($pagingLimit) {
+    public function setPagingLimit($pagingLimit)
+    {
         $this->pagingLimit = $pagingLimit;
         return $this;
     }
@@ -108,7 +124,8 @@ class RinkaAsiFilter {
      *
      * @param int $pagingPage
      */
-    public function setPagingPage($pagingPage) {
+    public function setPagingPage($pagingPage)
+    {
         $this->pagingPage = $pagingPage;
         return $this;
     }
@@ -116,9 +133,11 @@ class RinkaAsiFilter {
     /**
      *
      * @param boolean $skipCount
+     *
      * @return RinkaAsiFilter
      */
-    public function setSkipCount($skipCount) {
+    public function setSkipCount($skipCount)
+    {
         $this->skipCount = $skipCount;
         return $this;
     }
@@ -126,9 +145,11 @@ class RinkaAsiFilter {
     /**
      *
      * @param boolean $onlyWithImages
+     *
      * @return RinkaAsiFilter
      */
-    public function setOnlyWithImages($onlyWithImages) {
+    public function setOnlyWithImages($onlyWithImages)
+    {
         $this->onlyWithImages = $onlyWithImages;
         return $this;
     }
@@ -137,7 +158,8 @@ class RinkaAsiFilter {
      *
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -145,7 +167,8 @@ class RinkaAsiFilter {
      *
      * @return array
      */
-    public function getCategory() {
+    public function getCategory()
+    {
         return $this->category;
     }
 
@@ -153,11 +176,13 @@ class RinkaAsiFilter {
      *
      * @return array
      */
-    public function getCities() {
+    public function getCities()
+    {
         return $this->cities;
     }
 
-    public function getCity() {
+    public function getCity()
+    {
         return is_array($this->cities) && count($this->cities) > 0 ? reset($this->cities) : null;
     }
 
@@ -165,7 +190,8 @@ class RinkaAsiFilter {
      *
      * @return array
      */
-    public function getOrders() {
+    public function getOrders()
+    {
         return $this->orders;
     }
 
@@ -173,7 +199,8 @@ class RinkaAsiFilter {
      *
      * @return int
      */
-    public function getPagingLimit() {
+    public function getPagingLimit()
+    {
         return $this->pagingLimit;
     }
 
@@ -181,7 +208,8 @@ class RinkaAsiFilter {
      *
      * @return int
      */
-    public function getPagingPage() {
+    public function getPagingPage()
+    {
         return $this->pagingPage;
     }
 
@@ -189,7 +217,8 @@ class RinkaAsiFilter {
      *
      * @return boolean
      */
-    public function getSkipCount() {
+    public function getSkipCount()
+    {
         return $this->skipCount;
     }
 
@@ -197,8 +226,17 @@ class RinkaAsiFilter {
      *
      * @return boolean
      */
-    public function getOnlyWithImages() {
+    public function getOnlyWithImages()
+    {
         return $this->onlyWithImages;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFulltextSearch()
+    {
+        return $this->fulltextSearch;
     }
 
     /**
@@ -206,24 +244,27 @@ class RinkaAsiFilter {
      *
      * @return array
      */
-    public function toQueryParams(RinkaAsi $RinkaAsi) {
+    public function toQueryParams(RinkaAsi $RinkaAsi)
+    {
         $categoryKey = $this->getCategoryKey($RinkaAsi, $this->category);
         return array(
-            'id'          => $this->id,
-            'category'    => $categoryKey,
-            'type'        => ($categoryKey === null && !empty($this->category)) ? current($this->category) : null,
-            'cities'      => $this->cities === null ? null : $this->getCityKeys($RinkaAsi, $this->cities),
-            'orders'      => $this->orders,
-            'paging'      => array(
+            'id'               => $this->id,
+            'category'         => $categoryKey,
+            'type'             => ($categoryKey === null && !empty($this->category)) ? current($this->category) : null,
+            'cities'           => $this->cities === null ? null : $this->getCityKeys($RinkaAsi, $this->cities),
+            'fulltext_search'  => $this->fulltextSearch,
+            'orders'           => $this->orders,
+            'paging'           => array(
                 'limit'       => $this->pagingLimit,
                 'page'        => $this->pagingPage,
                 'skipCount'   => $this->skipCount,
             ),
-            'onlyWithImages' => $this->onlyWithImages ? '1' : '',
+            'onlyWithImages'   => $this->onlyWithImages ? '1' : '',
         );
     }
 
-    protected function getCategoryKey(RinkaAsi $RinkaAsi, array $categoryPath) {
+    protected function getCategoryKey(RinkaAsi $RinkaAsi, array $categoryPath)
+    {
         if (empty($categoryPath)) {
             return null;
         }
@@ -231,7 +272,8 @@ class RinkaAsiFilter {
         return $categories->getCategory($categoryPath)->getKey();
     }
 
-    protected function getCityKeys(RinkaAsi $RinkaAsi, array $cityList) {
+    protected function getCityKeys(RinkaAsi $RinkaAsi, array $cityList)
+    {
         $keys = array();
         foreach ($cityList as $city) {
             $keys[] = $this->getCityKey($RinkaAsi, $city);
@@ -239,12 +281,12 @@ class RinkaAsiFilter {
         return $keys;
     }
 
-    protected function getCityKey(RinkaAsi $RinkaAsi, array $cityPath) {
+    protected function getCityKey(RinkaAsi $RinkaAsi, array $cityPath)
+    {
         if (empty($cityPath)) {
             return null;
         }
         $categories = $RinkaAsi->getCategories();
         return $categories->getCityKey($cityPath);
     }
-
 }
