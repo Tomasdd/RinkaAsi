@@ -8,7 +8,7 @@ class RinkaAsiInsertEntry extends RinkaAsiEntry {
 
     protected $Category = null;
 
-    protected $acceptUrl = false;
+    protected $skipContacts = false;
     protected $contacts = array();
     protected $images = array();
     protected $publishDate = null;
@@ -354,14 +354,14 @@ class RinkaAsiInsertEntry extends RinkaAsiEntry {
         $this->userIp = $ip;
     }
 
-    public function setAcceptUrl($acceptUrl)
+    public function setSkipContacts($skipContacts)
     {
-        $this->acceptUrl = $acceptUrl;
+        $this->skipContacts = $skipContacts;
     }
 
-    public function getAcceptUrl()
+    public function getSkipContacts()
     {
-        return $this->acceptUrl;
+        return $this->skipContacts;
     }
 
     /**
@@ -370,7 +370,7 @@ class RinkaAsiInsertEntry extends RinkaAsiEntry {
      * @throws RinkaAsiException
      */
     public function validate() {
-        if (!$this->acceptUrl && empty($this->contacts['phone']) && empty($this->contacts['email'])) {
+        if (!$this->skipContacts && empty($this->contacts['phone']) && empty($this->contacts['email'])) {
             throw new RinkaAsiException(
                 "At least one phone number, email address",
                 RinkaAsiException::E_MISSING_VALUES
