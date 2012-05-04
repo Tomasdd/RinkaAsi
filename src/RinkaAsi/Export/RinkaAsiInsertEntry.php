@@ -8,6 +8,7 @@ class RinkaAsiInsertEntry extends RinkaAsiEntry {
 
     protected $Category = null;
 
+    protected $acceptUrl = false;
     protected $contacts = array();
     protected $images = array();
     protected $publishDate = null;
@@ -353,15 +354,25 @@ class RinkaAsiInsertEntry extends RinkaAsiEntry {
         $this->userIp = $ip;
     }
 
+    public function setAcceptUrl($acceptUrl)
+    {
+        $this->acceptUrl = $acceptUrl;
+    }
+
+    public function getAcceptUrl()
+    {
+        return $this->acceptUrl;
+    }
+
     /**
      * Validates entry before submission.
      *
      * @throws RinkaAsiException
      */
     public function validate() {
-        if (empty($this->contacts['phone']) && empty($this->contacts['email'])) {
+        if (!$this->acceptUrl && empty($this->contacts['phone']) && empty($this->contacts['email'])) {
             throw new RinkaAsiException(
-                "At least one phone number, email address or source URL must be specified",
+                "At least one phone number, email address",
                 RinkaAsiException::E_MISSING_VALUES
             );
         }
