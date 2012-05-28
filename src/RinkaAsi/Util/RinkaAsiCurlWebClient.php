@@ -24,7 +24,6 @@ class RinkaAsiCurlWebClient implements RinkaAsiWebClientInterface
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($ch, CURLOPT_TIMEOUT, 240);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
@@ -60,7 +59,6 @@ class RinkaAsiCurlWebClient implements RinkaAsiWebClientInterface
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($ch, CURLOPT_TIMEOUT, 240);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
